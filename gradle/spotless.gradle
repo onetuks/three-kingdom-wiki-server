@@ -3,9 +3,9 @@ spotless {
         googleJavaFormat()
 
         removeUnusedImports()
-        trimTrailingWhitespace() // 불필요한 공백 트림
-        indentWithSpaces(4) // 들여쓰기 4칸
-        endWithNewline() // 파일 끝에 개행 추가
+        trimTrailingWhitespace() // 불필요 공백 트림
+        indentWithSpaces(2) // 들여쓰기
+        endWithNewline() // 파일 끝 개행
     }
 }
 
