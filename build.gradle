@@ -41,36 +41,34 @@ dependencies {
     implementation('io.netty:netty-resolver-dns-native-macos:4.1.110.Final:osx-aarch_64')
 
     // Test
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 
     // TestContainers
-    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation('org.springframework.boot:spring-boot-testcontainers')
+    testImplementation('org.testcontainers:neo4j')
 
     // Junit
-    testImplementation 'org.testcontainers:junit-jupiter'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation('org.testcontainers:junit-jupiter')
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher')
 
     // lombok
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly('org.projectlombok:lombok')
+    annotationProcessor('org.projectlombok:lombok')
 
     // Spring Validation
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation('org.springframework.boot:spring-boot-starter-validation')
 
     // Spring Web
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation('org.springframework.boot:spring-boot-starter-web')
 
     // Spring Cache Abstract
-    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation('org.springframework.boot:spring-boot-starter-cache')
 
     // Spring Data Neo4j
-    implementation 'org.springframework.boot:spring-boot-starter-data-neo4j'
-
-    // Neo4j
-    testImplementation 'org.testcontainers:neo4j'
+    implementation('org.springframework.boot:spring-boot-starter-data-neo4j')
 
     // Spring Docker Compose
-    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+    developmentOnly('org.springframework.boot:spring-boot-docker-compose')
 
 //    // Prometheus
 //    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
