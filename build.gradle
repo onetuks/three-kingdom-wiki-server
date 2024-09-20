@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.4'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.onetuks'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // TestContainers
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+
+    // Junit
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Spring Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Spring Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Spring Cache Abstract
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+    // Spring Data Neo4j
+    implementation 'org.springframework.boot:spring-boot-starter-data-neo4j'
+
+    // Neo4j
+    testImplementation 'org.testcontainers:neo4j'
+
+    // Spring Docker Compose
+    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+
+//    // Prometheus
+//    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+//
+//    // Spring Actuator
+//    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
