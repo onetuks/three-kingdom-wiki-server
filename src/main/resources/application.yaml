@@ -1,6 +1,6 @@
 spring:
   neo4j:
-    uri: bolt://{DB_HOST:localhost}:{DB_BOLT_PORT:7687}
+    uri: bolt://${DB_HOST:localhost}:${DB_BOLT_PORT:7687}
     authentication:
-      username: {DB_USERNAME:neo4j}
-      password: {DB_PASSWORD:password}
+      username: ${DB_USERNAME:neo4j}
+      password: ${DB_PASSWORD:password}
