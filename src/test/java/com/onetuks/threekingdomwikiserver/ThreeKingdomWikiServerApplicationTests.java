@@ -9,7 +9,5 @@ import org.springframework.context.annotation.Import;
 class ThreeKingdomWikiServerApplicationTests {
 
   @Test
-  void contextLoads() {
-  }
-
+  void contextLoads() {}
 }

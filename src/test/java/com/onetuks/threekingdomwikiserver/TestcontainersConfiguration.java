@@ -14,5 +14,4 @@ class TestcontainersConfiguration {
   Neo4jContainer<?> neo4jContainer() {
     return new Neo4jContainer<>(DockerImageName.parse("neo4j:latest"));
   }
-
 }

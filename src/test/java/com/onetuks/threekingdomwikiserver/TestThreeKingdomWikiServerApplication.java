@@ -6,7 +6,7 @@ public class TestThreeKingdomWikiServerApplication {
 
   public static void main(String[] args) {
     SpringApplication.from(ThreeKingdomWikiServerApplication::main)
-        .with(TestcontainersConfiguration.class).run(args);
+        .with(TestcontainersConfiguration.class)
+        .run(args);
   }
-
 }

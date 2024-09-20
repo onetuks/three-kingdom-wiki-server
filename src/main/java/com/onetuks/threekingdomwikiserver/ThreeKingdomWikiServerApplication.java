@@ -9,5 +9,4 @@ public class ThreeKingdomWikiServerApplication {
   public static void main(String[] args) {
     SpringApplication.run(ThreeKingdomWikiServerApplication.class, args);
   }
-
 }
