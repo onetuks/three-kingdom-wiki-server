@@ -1,0 +1,93 @@
+name: Pull Request Integration
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches-ignore:
+      - main
+
+permissions: read-all
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Filter
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            application:
+              - '**/build.gradle'
+              - '**/src/**'
+            
+            - name: Gradlew exec permission grant
+        if: steps.changes.outputs.application == 'true'
+        run: chmod +x ./gradlew
+        shell: bash
+
+      - name: JDK Setup
+        if: steps.changes.outputs.application == 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: zulu
+          cache: 'gradle'
+
+      - name: Gradle Build
+        if: steps.changes.outputs.application == 'true'
+        env:
+          APP_NAME: ${{ secrets.APP_NAME }}
+          PROFILE: ${{ secrets.PROFILE }}
+          CLOUD_CONFIG_URL: ${{ secrets.CLOUD_CONFIG_URL }}
+          ACTUATOR_PORT: ${{ secrets.ACTUATOR_PORT }}
+        run: |
+          ./gradlew build spotlessApply --parallel
+
+          - name: Coverage Report
+            if: steps.changes.outputs.application == 'true'
+            uses: madrapps/jacoco-report@v1.6.1
+            with:
+              token: ${{ secrets.GITHUB_TOKEN }}
+              title: Code Coverage Report
+              update-comment: true
+              min-coverage-overall: 10
+              min-coverage-changed-files: 10
+              paths: |
+                ${{ github.workspace }}/build/reports/jacoco/testCodeCoverageReport/testCodeCoverageReport.xml
+
+  style-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Filter
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            application:
+              - '**/build.gradle'
+              - '**/src/**'
+
+      - name: JDK Setup
+        if: steps.changes.outputs.application == 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: zulu
+          cache: 'gradle'
+
+      - name: Style Check
+        if: steps.changes.outputs.application == 'true'
+        run: |
+          ./gradlew spotlessCheck
