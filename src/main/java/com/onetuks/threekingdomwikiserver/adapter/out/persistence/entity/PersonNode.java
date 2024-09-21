@@ -1,44 +1,56 @@
-package com.onetuks.threekingdomwikiserver.infrastructure.persistence.entity;
+package com.onetuks.threekingdomwikiserver.adapter.out.persistence.entity;
 
-import com.onetuks.threekingdomwikiserver.common.type.Gender;
-import com.onetuks.threekingdomwikiserver.common.type.Job;
-import com.onetuks.threekingdomwikiserver.common.type.Nation;
+import com.onetuks.threekingdomwikiserver.domain.person.Gender;
+import com.onetuks.threekingdomwikiserver.domain.person.Job;
+import com.onetuks.threekingdomwikiserver.domain.person.Nation;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Property;
+import org.springframework.data.neo4j.core.support.UUIDStringGenerator;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Node(labels = "Person")
-public class PersonEntity {
+public class PersonNode {
 
-  @Id @GeneratedValue private Long personId;
+  @Id
+  @GeneratedValue(UUIDStringGenerator.class)
+  private String personId;
 
+  @Property(name = "name")
   private String name;
+
+  @Property(name = "alias")
   private String alias;
+
+  @Property(name = "job")
   private Job job;
+
+  @Property(name = "gender")
   private Gender gender;
+
+  @Property(name = "nation")
   private Nation nation;
+
+  @Property(name = "birthYear")
   private Integer birthYear;
+
+  @Property(name = "deathYear")
   private Integer deathYear;
 
-  //  private Long documentId;
-  //  private Long documentVersion;
-
-  public PersonEntity(
-      Long personId,
+  public PersonNode(
+      String personId,
       String name,
       String alias,
       Job job,
       Gender gender,
       Nation nation,
       Integer birthYear,
-      Integer deathYear
-      //      Long documentId, Long documentVersion
-      ) {
+      Integer deathYear) {
     this.personId = personId;
     this.name = name;
     this.alias = alias;
@@ -47,7 +59,5 @@ public class PersonEntity {
     this.nation = nation;
     this.birthYear = birthYear;
     this.deathYear = deathYear;
-    //    this.documentId = documentId;
-    //    this.documentVersion = documentVersion;
   }
 }

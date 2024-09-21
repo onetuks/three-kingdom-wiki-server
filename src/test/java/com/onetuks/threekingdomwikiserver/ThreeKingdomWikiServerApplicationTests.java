@@ -1,6 +1,6 @@
 package com.onetuks.threekingdomwikiserver;
 
-import com.onetuks.threekingdomwikiserver.application.person.PersonApplicationService;
+import com.onetuks.threekingdomwikiserver.application.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -11,5 +11,5 @@ import org.springframework.context.annotation.Profile;
 @SpringBootTest
 public class ThreeKingdomWikiServerApplicationTests {
 
-  @Autowired public PersonApplicationService personApplicationService;
+  @Autowired public PersonService personService;
 }

@@ -1,9 +1,10 @@
 package com.onetuks.threekingdomwikiserver.fixtures;
 
-import com.onetuks.threekingdomwikiserver.common.type.Gender;
-import com.onetuks.threekingdomwikiserver.common.type.Job;
-import com.onetuks.threekingdomwikiserver.common.type.Nation;
-import com.onetuks.threekingdomwikiserver.domain.person.Person;
+import com.onetuks.threekingdomwikiserver.application.command.PersonAddCommand;
+import com.onetuks.threekingdomwikiserver.application.command.PersonEditCommand;
+import com.onetuks.threekingdomwikiserver.domain.person.Gender;
+import com.onetuks.threekingdomwikiserver.domain.person.Job;
+import com.onetuks.threekingdomwikiserver.domain.person.Nation;
 import java.util.List;
 import java.util.Random;
 
@@ -13,8 +14,19 @@ public class PersonFixture {
   private static final List<String> NAMES = List.of("유비", "관우", "장비", "제갈량", "조조", "사마의");
   private static final List<String> ALIASES = List.of("현덕", "운장", "익덕", "와룡", "맹덕", "뭐였더라");
 
-  public static Person create(Long personId) {
-    return new Person(
+  public static PersonAddCommand createAddCommand() {
+    return new PersonAddCommand(
+        createName(),
+        createAlias(),
+        createJob(),
+        createGender(),
+        createNation(),
+        createBirthYear(),
+        createDeathYear());
+  }
+
+  public static PersonEditCommand createEditCommand(String personId) {
+    return new PersonEditCommand(
         personId,
         createName(),
         createAlias(),

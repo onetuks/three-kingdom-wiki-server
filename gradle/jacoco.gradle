@@ -1,8 +1,6 @@
 ext.coverageExclude = List.of(
         "**/config/*",
-        "**/infrastructure/*",
-        "**/common/*",
-        "**/domain/*",
+        "**/adapter/*",
         "**/*ServerApplication*"
 )
 

@@ -1,4 +1,4 @@
-package com.onetuks.threekingdomwikiserver.common.type;
+package com.onetuks.threekingdomwikiserver.domain.person;
 
 import lombok.Getter;
 

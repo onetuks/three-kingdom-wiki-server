@@ -47,16 +47,30 @@ class ArchitectureTest extends ThreeKingdomWikiServerApplicationTests {
     }
 
     @Test
-    @DisplayName("application 패키지 안에 있는 클래스는 ApplicationService 로 끝난다.")
-    void service_ClassNamePostfix_Test() {
+    @DisplayName("converter 패키지 안에 있는 클래스는 Converter 로 끝난다.")
+    void converter_ClassNamePostfix_Test() {
       ArchRule rule =
           ArchRuleDefinition.classes()
               .that()
-              .resideInAnyPackage("..application..")
+              .resideInAnyPackage("..converter")
               .should()
-              .haveSimpleNameEndingWith("ApplicationService")
+              .haveSimpleNameEndingWith("Converter")
               .andShould()
-              .beAnnotatedWith(Service.class)
+              .beAnnotatedWith(Component.class)
+              .allowEmptyShould(true);
+
+      rule.check(javaClasses);
+    }
+
+    @Test
+    @DisplayName("entity 패키지 안에 있는 클래스는 Entity, Node, Relation 으로 끝난다.")
+    void entity_ClassNamePostfix_Test() {
+      ArchRule rule =
+          ArchRuleDefinition.classes()
+              .that()
+              .resideInAnyPackage("..entity")
+              .should()
+              .haveNameMatching("^.*(Entity|Node|Relation)$")
               .allowEmptyShould(true);
 
       rule.check(javaClasses);
@@ -69,10 +83,22 @@ class ArchitectureTest extends ThreeKingdomWikiServerApplicationTests {
           ArchRuleDefinition.classes()
               .that()
               .resideInAnyPackage("..repository")
-              .and()
-              .haveSimpleNameNotContaining("Neo4j")
               .should()
               .haveSimpleNameEndingWith("Repository")
+              .allowEmptyShould(true);
+
+      rule.check(javaClasses);
+    }
+
+    @Test
+    @DisplayName("persistence 패키지의 클래스는 Adapter 로 끝난다.")
+    void persistence_ClassNamePostfix_Test() {
+      ArchRule rule =
+          ArchRuleDefinition.classes()
+              .that()
+              .resideInAnyPackage("..persistence")
+              .should()
+              .haveSimpleNameEndingWith("Adapter")
               .andShould()
               .beAnnotatedWith(Repository.class)
               .allowEmptyShould(true);
@@ -81,16 +107,58 @@ class ArchitectureTest extends ThreeKingdomWikiServerApplicationTests {
     }
 
     @Test
-    @DisplayName("converter 패키지 안에 있는 클래스는 Converter 로 끝난다.")
-    void converter_ClassNamePostfix_Test() {
+    @DisplayName("command 패키지 안에 있는 클래스는 Command 로 끝난다.")
+    void command_ClassNamePostfix_Test() {
       ArchRule rule =
           ArchRuleDefinition.classes()
               .that()
-              .resideInAnyPackage("..converter")
+              .resideInAnyPackage("..command")
               .should()
-              .haveSimpleNameEndingWith("Converter")
+              .haveSimpleNameEndingWith("Command")
+              .allowEmptyShould(true);
+
+      rule.check(javaClasses);
+    }
+
+    @Test
+    @DisplayName("port.in 패키지 안에 있는 클래스는 UseCases 로 끝난다.")
+    void useCases_ClassNamePostfix_Test() {
+      ArchRule rule =
+          ArchRuleDefinition.classes()
+              .that()
+              .resideInAnyPackage("..port.in")
+              .should()
+              .haveSimpleNameEndingWith("UseCases")
+              .allowEmptyShould(true);
+
+      rule.check(javaClasses);
+    }
+
+    @Test
+    @DisplayName("port.out 패키지 안에 있는 클래스는 Port 로 끝난다.")
+    void port_ClassNamePostfix_Test() {
+      ArchRule rule =
+          ArchRuleDefinition.classes()
+              .that()
+              .resideInAnyPackage("..port.out")
+              .should()
+              .haveSimpleNameEndingWith("Port")
+              .allowEmptyShould(true);
+
+      rule.check(javaClasses);
+    }
+
+    @Test
+    @DisplayName("application 패키지 안에 있는 클래스는 Service 로 끝난다.")
+    void service_ClassNamePostfix_Test() {
+      ArchRule rule =
+          ArchRuleDefinition.classes()
+              .that()
+              .resideInAnyPackage("..application")
+              .should()
+              .haveSimpleNameEndingWith("Service")
               .andShould()
-              .beAnnotatedWith(Component.class)
+              .beAnnotatedWith(Service.class)
               .allowEmptyShould(true);
 
       rule.check(javaClasses);
@@ -125,20 +193,6 @@ class ArchitectureTest extends ThreeKingdomWikiServerApplicationTests {
 
       rule.check(javaClasses);
     }
-
-    @Test
-    @DisplayName("entity 패키지 안에 있는 클래스는 Entity 로 끝난다.")
-    void entity_ClassNamePostfix_Test() {
-      ArchRule rule =
-          ArchRuleDefinition.classes()
-              .that()
-              .resideInAnyPackage("..entity")
-              .should()
-              .haveSimpleNameEndingWith("Entity")
-              .allowEmptyShould(true);
-
-      rule.check(javaClasses);
-    }
   }
 
   @Nested
@@ -162,25 +216,24 @@ class ArchitectureTest extends ThreeKingdomWikiServerApplicationTests {
     }
 
     @Test
-    @DisplayName("ApplicationService 에서는 create, search, edit, remove 로 시작하는 메서드 이름을 사용한다.")
-    void applicationService_MethodNamePrefix_Test() {
+    @DisplayName("converter 에서는 toDomain, toEntity, toNode, toRelation 으로 시작하는 메소드 이름을 사용한다.")
+    void converter_MethodNamePrefix_Test() {
       ArchRule rule =
           ArchRuleDefinition.methods()
               .that()
               .arePublic()
               .and()
               .areDeclaredInClassesThat()
-              .haveSimpleNameEndingWith("ApplicationService")
+              .resideInAPackage("..converter")
               .should()
-              .haveNameMatching("^(create|search|edit|remove).*")
+              .haveNameMatching("^to(Domain|Entity|Node|Relation).*")
               .allowEmptyShould(true);
 
       rule.check(javaClasses);
     }
 
     @Test
-    @DisplayName(
-        "Repository 에서는 create, read, update, delete, find, count, exists 로 시작하는 메서드 이름을 사용한다.")
+    @DisplayName("port 에서는 create, read, update, delete 로 시작하는 메서드 이름을 사용한다.")
     void repository_MethodNamePrefix_Test() {
       ArchRule rule =
           ArchRuleDefinition.methods()
@@ -188,9 +241,9 @@ class ArchitectureTest extends ThreeKingdomWikiServerApplicationTests {
               .arePublic()
               .and()
               .areDeclaredInClassesThat()
-              .resideInAPackage("..repository")
+              .resideInAPackage("..port.out")
               .should()
-              .haveNameMatching("^(create|read|update|delete|find|count|exists).*")
+              .haveNameMatching("^(create|read|update|delete).*")
               .allowEmptyShould(true);
 
       rule.check(javaClasses);
@@ -201,60 +254,61 @@ class ArchitectureTest extends ThreeKingdomWikiServerApplicationTests {
   class DependencyTest {
 
     @Test
-    @DisplayName("domain 패키지는 오직 type 패키지만 의존한다")
+    @DisplayName("domain 패키지는 어떤 패키지도 의존하지 않는다.")
     void domain_DependOn_Test() {
-      ArchRule rule =
-          ArchRuleDefinition.classes()
-              .that()
-              .resideInAPackage("..domain")
-              .should()
-              .onlyDependOnClassesThat()
-              .resideInAnyPackage("..type", "..springframework")
-              .allowEmptyShould(true);
-
-      rule.check(javaClasses);
-    }
-
-    @Test
-    @DisplayName("application 패키지는 domain 패키지와 persistence 패키지만 의존한다")
-    void application_DependOn_Test() {
-      ArchRule rule =
-          ArchRuleDefinition.classes()
-              .that()
-              .resideInAPackage("..application")
-              .should()
-              .onlyDependOnClassesThat()
-              .resideInAnyPackage("..domain", "..persistence")
-              .allowEmptyShould(true);
-
-      rule.check(javaClasses);
-    }
-
-    @Test
-    @DisplayName("persistence 패키지는 domain 패키지만 의존한다")
-    void infrastructure_DependOn_Test() {
-      ArchRule rule =
-          ArchRuleDefinition.classes()
-              .that()
-              .resideInAPackage("..persistence")
-              .should()
-              .onlyDependOnClassesThat()
-              .resideInAnyPackage("..domain", "..persistence", "..springframework", "..lombok")
-              .allowEmptyShould(true);
-
-      rule.check(javaClasses);
-    }
-
-    @Test
-    @DisplayName("web 패키지는 persistence 패키지는 의존하지 않는다")
-    void controller_DependOn_Test() {
       ArchRule rule =
           ArchRuleDefinition.noClasses()
               .that()
-              .resideInAPackage("..web")
+              .resideInAPackage("..domain..")
+              .should()
+              .onlyDependOnClassesThat()
+              .resideInAnyPackage("..lombok..")
+              .allowEmptyShould(true);
+
+      rule.check(javaClasses);
+    }
+
+    @Test
+    @DisplayName("service 는 application, domain 만 의존한다")
+    void service_DependOn_Test() {
+      ArchRule rule =
+          ArchRuleDefinition.classes()
+              .that()
+              .resideInAPackage("..application..")
+              .should()
+              .onlyDependOnClassesThat()
+              .resideInAnyPackage(
+                  "..domain..", "..application..", "..springframework..", "jakarta..", "java..")
+              .allowEmptyShould(true);
+
+      rule.check(javaClasses);
+    }
+
+    @Test
+    @DisplayName("in 패키지는 out 패키지는 의존하지 않는다")
+    void in_DependOn_Test() {
+      ArchRule rule =
+          ArchRuleDefinition.noClasses()
+              .that()
+              .resideInAPackage("..in..")
               .should()
               .dependOnClassesThat()
-              .resideInAPackage("..persistence")
+              .resideInAPackage("..out..")
+              .allowEmptyShould(true);
+
+      rule.check(javaClasses);
+    }
+
+    @Test
+    @DisplayName("out 패키지는 in 패키지는 의존하지 않는다")
+    void out_DependOn_Test() {
+      ArchRule rule =
+          ArchRuleDefinition.noClasses()
+              .that()
+              .resideInAPackage("..out..")
+              .should()
+              .dependOnClassesThat()
+              .resideInAPackage("..in..")
               .allowEmptyShould(true);
 
       rule.check(javaClasses);
@@ -266,7 +320,7 @@ class ArchitectureTest extends ThreeKingdomWikiServerApplicationTests {
       ArchRule rule =
           ArchRuleDefinition.classes()
               .that()
-              .resideInAnyPackage("..entity")
+              .resideInAnyPackage("..entity..")
               .should()
               .onlyHaveDependentClassesThat()
               .resideInAnyPackage("..persistence..")
@@ -281,10 +335,10 @@ class ArchitectureTest extends ThreeKingdomWikiServerApplicationTests {
       ArchRule rule =
           ArchRuleDefinition.classes()
               .that()
-              .resideInAnyPackage("..dto")
+              .resideInAnyPackage("..dto..")
               .should()
               .onlyHaveDependentClassesThat()
-              .resideInAnyPackage("..web")
+              .resideInAnyPackage("..web..")
               .allowEmptyShould(true);
 
       rule.check(javaClasses);
