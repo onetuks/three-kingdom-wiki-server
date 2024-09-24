@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 class PersonServiceTest extends ThreeKingdomWikiServerApplicationTests {
 
   @Test
-  @DisplayName("인물을 생성한다")
+  @DisplayName("인물을 생성한다.")
   void createPerson() {
     // Given
     PersonAddCommand command = PersonFixture.createAddCommand();
@@ -29,7 +29,7 @@ class PersonServiceTest extends ThreeKingdomWikiServerApplicationTests {
   }
 
   @Test
-  @DisplayName("인물을 수정한다")
+  @DisplayName("인물을 수정한다.")
   void editPerson() {
     // Given
     String personId = personService.addPerson(PersonFixture.createAddCommand());
@@ -53,7 +53,7 @@ class PersonServiceTest extends ThreeKingdomWikiServerApplicationTests {
   }
 
   @Test
-  @DisplayName("인물을 조회한다")
+  @DisplayName("인물을 조회한다.")
   void searchPerson() {
     // Given
     String personId = personService.addPerson(PersonFixture.createAddCommand());
@@ -66,7 +66,7 @@ class PersonServiceTest extends ThreeKingdomWikiServerApplicationTests {
   }
 
   @Test
-  @DisplayName("인물을 삭제한다")
+  @DisplayName("인물을 삭제한다.")
   void removePerson() {
     // Given
     String personId = personService.addPerson(PersonFixture.createAddCommand());

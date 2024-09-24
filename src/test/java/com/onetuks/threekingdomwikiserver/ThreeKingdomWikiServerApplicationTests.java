@@ -1,5 +1,6 @@
 package com.onetuks.threekingdomwikiserver;
 
+import com.onetuks.threekingdomwikiserver.application.EventService;
 import com.onetuks.threekingdomwikiserver.application.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,4 +13,5 @@ import org.springframework.context.annotation.Profile;
 public class ThreeKingdomWikiServerApplicationTests {
 
   @Autowired public PersonService personService;
+  @Autowired public EventService eventService;
 }
