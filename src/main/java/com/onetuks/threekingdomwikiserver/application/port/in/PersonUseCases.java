@@ -1,7 +1,7 @@
 package com.onetuks.threekingdomwikiserver.application.port.in;
 
-import com.onetuks.threekingdomwikiserver.application.command.PersonAddCommand;
-import com.onetuks.threekingdomwikiserver.application.command.PersonEditCommand;
+import com.onetuks.threekingdomwikiserver.application.command.person.PersonAddCommand;
+import com.onetuks.threekingdomwikiserver.application.command.person.PersonEditCommand;
 import com.onetuks.threekingdomwikiserver.domain.person.Person;
 
 public interface PersonUseCases {

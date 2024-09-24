@@ -1,4 +1,4 @@
-package com.onetuks.threekingdomwikiserver.application.command;
+package com.onetuks.threekingdomwikiserver.application.command.person;
 
 import com.onetuks.threekingdomwikiserver.domain.person.Gender;
 import com.onetuks.threekingdomwikiserver.domain.person.Job;

@@ -5,8 +5,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.onetuks.threekingdomwikiserver.ThreeKingdomWikiServerApplicationTests;
-import com.onetuks.threekingdomwikiserver.application.command.PersonAddCommand;
-import com.onetuks.threekingdomwikiserver.application.command.PersonEditCommand;
+import com.onetuks.threekingdomwikiserver.application.command.person.PersonAddCommand;
+import com.onetuks.threekingdomwikiserver.application.command.person.PersonEditCommand;
 import com.onetuks.threekingdomwikiserver.domain.person.Person;
 import com.onetuks.threekingdomwikiserver.fixtures.PersonFixture;
 import java.util.NoSuchElementException;
