@@ -64,6 +64,9 @@ dependencies {
     // Spring Web
     implementation('org.springframework.boot:spring-boot-starter-web')
 
+    // Spring AOP
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+
     // Spring Cache Abstract
     implementation('org.springframework.boot:spring-boot-starter-cache')
 

@@ -27,7 +27,7 @@ public class EventNeo4jAdapter implements EventPort {
   public Event readById(String eventId) {
     return converter.toDomain(
         repository
-            .findById(eventId)
+            .findByEventId(eventId)
             .orElseThrow(() -> new NoSuchElementException("Event not found")));
   }
 
@@ -38,6 +38,6 @@ public class EventNeo4jAdapter implements EventPort {
 
   @Override
   public void delete(String eventId) {
-    repository.deleteById(eventId);
+    repository.deleteByEventId(eventId);
   }
 }

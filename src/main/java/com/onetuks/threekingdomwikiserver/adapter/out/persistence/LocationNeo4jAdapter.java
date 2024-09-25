@@ -27,7 +27,7 @@ public class LocationNeo4jAdapter implements LocationPort {
   public Location readById(String locationId) {
     return converter.toDomain(
         repository
-            .findById(locationId)
+            .findByLocationId(locationId)
             .orElseThrow(() -> new NoSuchElementException("Location not found")));
   }
 
@@ -38,6 +38,6 @@ public class LocationNeo4jAdapter implements LocationPort {
 
   @Override
   public void delete(String locationId) {
-    repository.deleteById(locationId);
+    repository.deleteByLocationId(locationId);
   }
 }

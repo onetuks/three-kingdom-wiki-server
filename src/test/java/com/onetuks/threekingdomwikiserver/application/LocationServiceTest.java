@@ -63,6 +63,7 @@ class LocationServiceTest extends ThreeKingdomWikiServerApplicationTests {
   }
 
   @Test
+  @DisplayName("장소를 삭제한다.")
   void removeLocation() {
     // Given
     String locationId = locationService.addLocation(LocationFixture.createAddCommand());

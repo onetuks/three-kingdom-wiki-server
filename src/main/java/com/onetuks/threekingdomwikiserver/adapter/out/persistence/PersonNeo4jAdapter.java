@@ -27,7 +27,7 @@ public class PersonNeo4jAdapter implements PersonPort {
   public Person readById(String personId) {
     return converter.toDomain(
         repository
-            .findById(personId)
+            .findByPersonId(personId)
             .orElseThrow(() -> new NoSuchElementException("Person not found")));
   }
 
@@ -38,6 +38,6 @@ public class PersonNeo4jAdapter implements PersonPort {
 
   @Override
   public void delete(String personId) {
-    repository.deleteById(personId);
+    repository.deleteByPersonId(personId);
   }
 }
