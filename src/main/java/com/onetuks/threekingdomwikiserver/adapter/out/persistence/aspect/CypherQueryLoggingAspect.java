@@ -25,7 +25,7 @@ public class CypherQueryLoggingAspect {
       Query queryAnnotation = method.getAnnotation(Query.class);
       String cypherQuery = queryAnnotation.value();
 
-      log.info("{} - {}\n", method.getName(), cypherQuery);
+      log.info("{}\n{}", method.getName(), cypherQuery);
     }
 
     return joinPoint.proceed();

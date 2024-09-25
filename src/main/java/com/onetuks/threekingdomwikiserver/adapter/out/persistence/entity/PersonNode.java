@@ -3,6 +3,7 @@ package com.onetuks.threekingdomwikiserver.adapter.out.persistence.entity;
 import com.onetuks.threekingdomwikiserver.domain.person.Gender;
 import com.onetuks.threekingdomwikiserver.domain.person.Job;
 import com.onetuks.threekingdomwikiserver.domain.person.Nation;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,8 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
+import org.springframework.data.neo4j.core.schema.Relationship;
+import org.springframework.data.neo4j.core.schema.Relationship.Direction;
 import org.springframework.data.neo4j.core.support.UUIDStringGenerator;
 
 @Getter
@@ -42,6 +45,9 @@ public class PersonNode {
   @Property(name = "deathYear")
   private Integer deathYear;
 
+  @Relationship(type = "RELATE_WITH", direction = Direction.OUTGOING)
+  private Set<RelateWithRelation> relateWithRelations;
+
   public PersonNode(
       String personId,
       String name,
@@ -50,7 +56,8 @@ public class PersonNode {
       Gender gender,
       Nation nation,
       Integer birthYear,
-      Integer deathYear) {
+      Integer deathYear,
+      Set<RelateWithRelation> relateWithRelations) {
     this.personId = personId;
     this.name = name;
     this.alias = alias;
@@ -59,5 +66,6 @@ public class PersonNode {
     this.nation = nation;
     this.birthYear = birthYear;
     this.deathYear = deathYear;
+    this.relateWithRelations = relateWithRelations;
   }
 }
